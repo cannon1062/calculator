@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+.calculator-body {
+    width: 20%;
+}
+
+.display-area {
+    text-align: end;
+    border: 1px solid black;
+    margin-bottom: 2px;
+}
+
+button {
+    width: 25%;
+    height: 25%;
+    background-color: darkgray;
+}
+
+.num-button {
+    background-color: lightblue;
+}
+
+.op-button {
+    background-color: orange;
+}
+
+.zero-button {
+    width: 50%;
+}
+
+.button-area {
+    display: flex;
+    flex-wrap: wrap;
+}
