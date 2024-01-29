@@ -2,6 +2,8 @@ const display = document.querySelector('.display-area');
 const numButtons = document.querySelectorAll('.num-button');
 const clearButton = document.querySelector('.clear-button');
 const decimalButton = document.querySelector('.decimal-button');
+const plusMinusButton = document.querySelector('.plus-minus-button');
+const percentButton = document.querySelector('.percent-button');
 
 numButtons.forEach((numButton) => {
     numButton.addEventListener('click', () => {
@@ -17,6 +19,14 @@ decimalButton.addEventListener('click', () => {
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
+})
+
+plusMinusButton.addEventListener('click', () => {
+    display.textContent = -display.textContent;
+})
+
+percentButton.addEventListener('click', () => {
+    display.textContent /= 100;
 })
 
 clearButton.addEventListener('click', () => {
