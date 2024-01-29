@@ -2,23 +2,43 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .calculator-body {
-    width: 20%;
+    margin-top: 10%;
+    width: 25%;
+    border: 2px solid black;
+    padding: 10px;
+    background-color: darkblue;
+    flex-shrink: 0;
 }
 
 .display-area {
     text-align: end;
-    border: 1px solid black;
+    border: 2px solid black;
     margin-bottom: 2px;
+    font-size: 2rem;
+    padding-right: 5px;
+    background-color: white;
 }
 
 button {
-    width: 25%;
-    height: 25%;
+    width: 23%;
+    height: 2rem;
     background-color: darkgray;
+    font-size: 100%;
+    margin-top: 2%;
+    flex-shrink: 0;
 }
 
-.num-button {
+.display-area, button, .calculator-body {
+    border-radius: 10px;
+}
+
+.num-button, .decimal-button {
     background-color: lightblue;
 }
 
@@ -27,10 +47,12 @@ button {
 }
 
 .zero-button {
-    width: 50%;
+    width: 48%;
 }
 
 .button-area {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 2%;
 }
