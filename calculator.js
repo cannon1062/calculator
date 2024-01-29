@@ -4,17 +4,48 @@ const clearButton = document.querySelector('.clear-button');
 const decimalButton = document.querySelector('.decimal-button');
 const plusMinusButton = document.querySelector('.plus-minus-button');
 const percentButton = document.querySelector('.percent-button');
+const operatorButtons = document.querySelectorAll('.op-button');
+const equalsButton = document.querySelector('.equals-button');
+
+let firstNumber = '';
+let secondNumber = '';
+let activeNumber = '';
+let operator = '';
+let inputToggle = true;
 
 numButtons.forEach((numButton) => {
     numButton.addEventListener('click', () => {
-        if (display.textContent === '0') {
+        if (display.textContent === '0' || inputToggle === false) {
             display.textContent = numButton.getAttribute('value');
+            activeNumber = +display.textContent;
+            secondNumber = activeNumber;
+            inputToggle = true;
         } else if(display.textContent.length < 12) {
             display.textContent += numButton.getAttribute('value');
+            activeNumber = +display.textContent;
+            secondNumber = activeNumber;
         }
     })
 })
 
+operatorButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener('click', () => {
+        operator = operatorButton.getAttribute('value');
+        inputToggle = false;
+        if (firstNumber === '') {
+            firstNumber = activeNumber;
+            return;
+        }
+        if (firstNumber && secondNumber) {
+            let result = operate(+firstNumber, +secondNumber, operator);
+            display.textContent = result;
+            firstNumber = result;
+            secondNumber = '';
+            return;
+        }
+
+    });
+});
 decimalButton.addEventListener('click', () => {
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
@@ -31,6 +62,15 @@ percentButton.addEventListener('click', () => {
 
 clearButton.addEventListener('click', () => {
     display.textContent = '0';
+    firstNumber = '';
+    secondNumber = '';
+    activeNumber = '';
+    operator = '';
+    inputToggle = true;
+})
+
+equalsButton.addEventListener('click', () => {
+    display.textContent = operate(+firstNumber, +secondNumber, operator);
 })
 
 function operate(firstNumber, secondNumber, operator) {

@@ -49,7 +49,7 @@ button,
     background-color: lightblue;
 }
 
-.op-button {
+.op-button, .equals-button {
     background-color: turquoise;
 }
 
