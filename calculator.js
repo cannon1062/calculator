@@ -26,7 +26,7 @@ plusMinusButton.addEventListener('click', () => {
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent /= 100;
+    display.textContent = parseFloat((display.textContent/100).toFixed(16));
 })
 
 clearButton.addEventListener('click', () => {
