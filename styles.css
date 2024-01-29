@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    background-color: gray;
 }
 
 body {
@@ -7,19 +8,23 @@ body {
     justify-content: center;
 }
 
+.calculator-body,
+.button-area {
+    background-color: darkblue;
+}
+
 .calculator-body {
     margin-top: 10%;
     width: 25%;
     border: 2px solid black;
     padding: 10px;
-    background-color: darkblue;
     flex-shrink: 0;
 }
 
 .display-area {
     text-align: end;
     border: 2px solid black;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
     font-size: 2rem;
     padding-right: 5px;
     background-color: white;
@@ -28,14 +33,16 @@ body {
 button {
     width: 23%;
     height: 2rem;
-    background-color: darkgray;
+    background-color: lightgoldenrodyellow;
     font-size: 100%;
     margin-top: 2%;
     flex-shrink: 0;
 }
 
-.display-area, button, .calculator-body {
-    border-radius: 10px;
+.display-area, 
+button,
+.calculator-body {
+    border-radius: 20px;
 }
 
 .num-button, .decimal-button {
@@ -43,7 +50,7 @@ button {
 }
 
 .op-button {
-    background-color: orange;
+    background-color: turquoise;
 }
 
 .zero-button {
