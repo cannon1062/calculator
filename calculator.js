@@ -30,10 +30,11 @@ numButtons.forEach((numButton) => {
 
 operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener('click', () => {
-        operator = operatorButton.getAttribute('value');
         inputToggle = false;
         if (firstNumber === '') {
+            activeNumber = +display.textContent;
             firstNumber = activeNumber;
+            operator = operatorButton.getAttribute('value');
             return;
         }
         if (firstNumber && secondNumber) {
@@ -41,6 +42,7 @@ operatorButtons.forEach((operatorButton) => {
             display.textContent = result;
             firstNumber = result;
             secondNumber = '';
+            operator = operatorButton.getAttribute('value');
             return;
         }
 
@@ -53,11 +55,12 @@ decimalButton.addEventListener('click', () => {
 })
 
 plusMinusButton.addEventListener('click', () => {
-    display.textContent = -display.textContent;
+    display.textContent *= -1;
+    secondNumber = -secondNumber;
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent = parseFloat((display.textContent/100).toFixed(16));
+    display.textContent = parseFloat((display.textContent/100).toFixed(12));
 })
 
 clearButton.addEventListener('click', () => {
@@ -70,7 +73,9 @@ clearButton.addEventListener('click', () => {
 })
 
 equalsButton.addEventListener('click', () => {
-    display.textContent = operate(+firstNumber, +secondNumber, operator);
+    let result = operate(+firstNumber, +secondNumber, operator);
+    display.textContent = result;
+    firstNumber = result;
 })
 
 function operate(firstNumber, secondNumber, operator) {
@@ -105,5 +110,5 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    return parseFloat((a / b).toFixed(12));
 }
