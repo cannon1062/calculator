@@ -12,6 +12,8 @@ let secondNumber = '';
 let activeNumber = '';
 let operator = '';
 let inputToggle = true;
+let initialState = true;
+let delay = false;
 
 numButtons.forEach((numButton) => {
     numButton.addEventListener('click', () => {
@@ -20,6 +22,7 @@ numButtons.forEach((numButton) => {
             activeNumber = +display.textContent;
             secondNumber = activeNumber;
             inputToggle = true;
+            initialState = false;
         } else if(display.textContent.length < 12) {
             display.textContent += numButton.getAttribute('value');
             activeNumber = +display.textContent;
@@ -30,25 +33,33 @@ numButtons.forEach((numButton) => {
 
 operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener('click', () => {
-        inputToggle = false;
-        if (firstNumber === '') {
-            activeNumber = +display.textContent;
-            firstNumber = activeNumber;
+        if (initialState === false) {
+            inputToggle = false;
+            if (firstNumber === '') {
+                activeNumber = +display.textContent;
+                firstNumber = activeNumber;
+                operator = operatorButton.getAttribute('value');
+                return;
+            }
+            if (firstNumber && secondNumber && !delay) {
+                let result = operate(+firstNumber, +secondNumber, operator);
+                display.textContent = result.toString().slice(0, 12);
+                firstNumber = result;
+                secondNumber = '';
+                operator = operatorButton.getAttribute('value');
+                return;
+            }
+            delay = false;
             operator = operatorButton.getAttribute('value');
-            return;
         }
-        if (firstNumber && secondNumber) {
-            let result = operate(+firstNumber, +secondNumber, operator);
-            display.textContent = result;
-            firstNumber = result;
-            secondNumber = '';
-            operator = operatorButton.getAttribute('value');
-            return;
-        }
-
     });
 });
 decimalButton.addEventListener('click', () => {
+    if (inputToggle === false) {
+        display.textContent = '0.';
+        inputToggle = true;
+        return;
+    }
     if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
@@ -60,7 +71,7 @@ plusMinusButton.addEventListener('click', () => {
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent = parseFloat((display.textContent/100).toFixed(12));
+    display.textContent = parseFloat((display.textContent/100).toFixed(10));
 })
 
 clearButton.addEventListener('click', () => {
@@ -70,12 +81,16 @@ clearButton.addEventListener('click', () => {
     activeNumber = '';
     operator = '';
     inputToggle = true;
+    initialState = true;
 })
 
 equalsButton.addEventListener('click', () => {
-    let result = operate(+firstNumber, +secondNumber, operator);
-    display.textContent = result;
-    firstNumber = result;
+    if (initialState === false && firstNumber && inputToggle === true) {
+        let result = operate(+firstNumber, +secondNumber, operator);
+        display.textContent = result.toString().slice(0, 12);
+        firstNumber = result;
+        delay = true;
+    }
 })
 
 function operate(firstNumber, secondNumber, operator) {
@@ -110,5 +125,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return parseFloat((a / b).toFixed(12));
+    if (+b === 0) {
+        return 'DIV BY ZERO';
+    }
+    return a / b;
 }
