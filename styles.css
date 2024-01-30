@@ -41,6 +41,7 @@ button {
     border-radius: 50px;
     text-align: center;
     color: black;
+    padding: 0;
 }
 
 .display-area, 
