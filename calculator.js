@@ -6,6 +6,7 @@ const plusMinusButton = document.querySelector('.plus-minus-button');
 const percentButton = document.querySelector('.percent-button');
 const operatorButtons = document.querySelectorAll('.op-button');
 const equalsButton = document.querySelector('.equals-button');
+const digits = 9;
 
 let firstNumber = '';
 let secondNumber = '';
@@ -23,7 +24,7 @@ numButtons.forEach((numButton) => {
             secondNumber = activeNumber;
             inputToggle = true;
             initialState = false;
-        } else if(display.textContent.length < 12) {
+        } else if(display.textContent.length < digits) {
             display.textContent += numButton.getAttribute('value');
             activeNumber = +display.textContent;
             secondNumber = activeNumber;
@@ -43,7 +44,7 @@ operatorButtons.forEach((operatorButton) => {
             }
             if (firstNumber && secondNumber && !delay) {
                 let result = operate(+firstNumber, +secondNumber, operator);
-                display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, 12);
+                display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, digits);
                 firstNumber = result;
                 secondNumber = '';
                 operator = operatorButton.getAttribute('value');
@@ -71,7 +72,7 @@ plusMinusButton.addEventListener('click', () => {
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent = parseFloat((display.textContent/100).toFixed(12).toString().slice(0, 12));
+    display.textContent = parseFloat((display.textContent/100).toFixed(12).toString().slice(0, digits));
 })
 
 clearButton.addEventListener('click', () => {
@@ -87,7 +88,7 @@ clearButton.addEventListener('click', () => {
 equalsButton.addEventListener('click', () => {
     if (initialState === false && firstNumber && inputToggle === true) {
         let result = operate(+firstNumber, +secondNumber, operator);
-        display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, 12);
+        display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, digits);
         firstNumber = result;
         delay = true;
     }
