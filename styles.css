@@ -39,6 +39,8 @@ button {
     margin-top: 2%;
     flex-shrink: 0;
     border-radius: 50px;
+    text-align: center;
+    color: black;
 }
 
 .display-area, 
