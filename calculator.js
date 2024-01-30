@@ -43,7 +43,7 @@ operatorButtons.forEach((operatorButton) => {
             }
             if (firstNumber && secondNumber && !delay) {
                 let result = operate(+firstNumber, +secondNumber, operator);
-                display.textContent = result.toString().slice(0, 12);
+                display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, 12);
                 firstNumber = result;
                 secondNumber = '';
                 operator = operatorButton.getAttribute('value');
@@ -71,7 +71,7 @@ plusMinusButton.addEventListener('click', () => {
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent = parseFloat((display.textContent/100).toFixed(10));
+    display.textContent = parseFloat((display.textContent/100).toFixed(12).toString().slice(0, 12));
 })
 
 clearButton.addEventListener('click', () => {
@@ -87,7 +87,7 @@ clearButton.addEventListener('click', () => {
 equalsButton.addEventListener('click', () => {
     if (initialState === false && firstNumber && inputToggle === true) {
         let result = operate(+firstNumber, +secondNumber, operator);
-        display.textContent = result.toString().slice(0, 12);
+        display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, 12);
         firstNumber = result;
         delay = true;
     }
