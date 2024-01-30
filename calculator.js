@@ -56,13 +56,16 @@ operatorButtons.forEach((operatorButton) => {
     });
 });
 decimalButton.addEventListener('click', () => {
-    if (inputToggle === false) {
+    if (display.textContent === '0' || inputToggle === false) {
         display.textContent = '0.';
+        activeNumber = +display.textContent;
+        secondNumber = activeNumber;
         inputToggle = true;
-        return;
-    }
-    if (!display.textContent.includes('.')) {
+        initialState = false;
+    } else if(display.textContent.length < digits && !display.textContent.includes('.')) {
         display.textContent += '.';
+        activeNumber = +display.textContent;
+        secondNumber = activeNumber;
     }
 })
 
@@ -77,12 +80,7 @@ percentButton.addEventListener('click', () => {
 
 clearButton.addEventListener('click', () => {
     display.textContent = '0';
-    firstNumber = '';
-    secondNumber = '';
-    activeNumber = '';
-    operator = '';
-    inputToggle = true;
-    initialState = true;
+    initialize();
 })
 
 equalsButton.addEventListener('click', () => {
@@ -93,6 +91,16 @@ equalsButton.addEventListener('click', () => {
         delay = true;
     }
 })
+
+function initialize() {
+    firstNumber = '';
+    secondNumber = '';
+    activeNumber = '';
+    operator = '';
+    inputToggle = true;
+    initialState = true;
+    delay = false;
+}
 
 function operate(firstNumber, secondNumber, operator) {
     switch(operator) {
