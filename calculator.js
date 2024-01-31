@@ -89,7 +89,6 @@ equalsButton.addEventListener('click', () => {
         let result = operate(+firstNumber, +secondNumber, operator);
         display.textContent = fitDisplay(result);
         firstNumber = result;
-        secondNumber = '';
         delay = true;
     }
 })
