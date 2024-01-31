@@ -24,7 +24,7 @@ numButtons.forEach((numButton) => {
             secondNumber = activeNumber;
             inputToggle = true;
             initialState = false;
-        } else if(display.textContent.length < digits) {
+        } else if (display.textContent.length < digits) {
             display.textContent += numButton.getAttribute('value');
             activeNumber = +display.textContent;
             secondNumber = activeNumber;
@@ -42,9 +42,9 @@ operatorButtons.forEach((operatorButton) => {
                 operator = operatorButton.getAttribute('value');
                 return;
             }
-            if (firstNumber && secondNumber && !delay) {
+            if (firstNumber !== '' && secondNumber !== '' && !delay) {
                 let result = operate(+firstNumber, +secondNumber, operator);
-                display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, digits);
+                display.textContent = fitDisplay(result);
                 firstNumber = result;
                 secondNumber = '';
                 operator = operatorButton.getAttribute('value');
@@ -75,7 +75,8 @@ plusMinusButton.addEventListener('click', () => {
 })
 
 percentButton.addEventListener('click', () => {
-    display.textContent = parseFloat((display.textContent/100).toFixed(12).toString().slice(0, digits));
+    result = display.textContent/100;
+    display.textContent = fitDisplay(result);
 })
 
 clearButton.addEventListener('click', () => {
@@ -84,10 +85,11 @@ clearButton.addEventListener('click', () => {
 })
 
 equalsButton.addEventListener('click', () => {
-    if (initialState === false && firstNumber && inputToggle === true) {
+    if (initialState === false && firstNumber !== '' && inputToggle === true) {
         let result = operate(+firstNumber, +secondNumber, operator);
-        display.textContent = parseFloat(result.toFixed(12)).toString().slice(0, digits);
+        display.textContent = fitDisplay(result);
         firstNumber = result;
+        secondNumber = '';
         delay = true;
     }
 })
@@ -100,6 +102,15 @@ function initialize() {
     inputToggle = true;
     initialState = true;
     delay = false;
+}
+
+function fitDisplay(num) {
+    if (typeof num !== 'number') {
+        return num;
+    } else if (isNaN(num)) {
+        return 'STOP IT!'
+    }
+    return parseFloat(num.toFixed(12)).toString().slice(0, digits);
 }
 
 function operate(firstNumber, secondNumber, operator) {
@@ -135,7 +146,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (+b === 0) {
-        return 'DIV BY ZERO';
+        return 'DIV ZERO';
     }
     return a / b;
 }
